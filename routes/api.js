@@ -1,19 +1,20 @@
 const router = require("express").Router();
 const Workout = require("../models/workout.js");
+const path = require("path")
 
 // ***** HTML ROUTES*****//
 
 // displays whatever page is called to that route
 router.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, '../public', 'index.html'));
 });
 
 router.get("/exercise", (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'exercise.html'));
+    res.sendFile(path.join(__dirname, '../public', 'exercise.html'));
 });
 
 router.get("/stats", (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'stats.html'));
+    res.sendFile(path.join(__dirname, '../public', 'stats.html'));
 });
 
 // **** API ROUTES **** // 
@@ -59,13 +60,13 @@ router.put("/api/workouts/:id", (req, res) => {
     // we only want to update ONE document, at this id, with these new updates
     Workout.updateOne( {_id: req.params.id}, {$push: {
         exercises: [
-            "type": req.body.type,
-            "name": req.body.name,
-            "duration": req.body.duration,
-            "distance": req.body.distance,
-            "weight": req.body.weight,
-            "sets": req.body.sets,
-            "reps": req.body.reps
+            type = req.body.type,
+            name= req.body.name,
+            duration= req.body.duration,
+            distance= req.body.distance,
+            weight= req.body.weight,
+            sets= req.body.sets,
+            reps= req.body.reps
         ]
     }
     })
