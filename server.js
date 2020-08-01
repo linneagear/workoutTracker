@@ -9,14 +9,13 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(logger("dev"));
-
-app.use(require("./routes/api.js"));
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // set up static files
 app.use(express.static("public"));
+// set up routes
+app.use(require("./routes/api.js"));
 
 // connect to mongoose
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workouts", {

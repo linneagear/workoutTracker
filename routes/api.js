@@ -23,14 +23,45 @@ router.get("/stats", (req, res) => {
 router.get("/api/workouts", (req, res) => {
     Workout.find({})
     // sort by last known date, and limit to one day
-    .sort({ date: -1})
-    .limit(1)
+    // .sort({ date: -1})
+    // .limit(1)
     .then(dbWorkout => {
         res.json(dbWorkout);
     })
     .catch(err => {
-        res.status(400).json(err);
+        res.json(err);
+    });
+});
+
+// post any new workouts by using post and create
+router.post("/api/workouts", (req, res) => {
+    Workout.create({})
+    .then(dbWorkout => {
+        res.json(dbWorkout)
     })
+    .catch(err => {
+        res.json(err)
+    });
+});
+
+// update by ID, using MongoDB documentation
+router.put("/api/workouts/:id", ({body, params}, res) => {
+    // updates one document, at this id, with these new updates
+    Workout.findByIdAndUpdate( 
+        // id of item to find
+        params.id,
+        // changes to be made. Combine existing body with this change
+        {$push: {exercies: body} },
+        // return the updated version, instead of the pre-updated one
+        // "runValidators" ensures new exercies meet requirements
+        { new: true, runValidators: true}
+    )
+    .then(dbWorkout => {
+        res.json(dbWorkout)
+    })
+    .catch(err => {
+        res.json(err)
+    });
 });
 
 // get range of workouts
@@ -41,40 +72,6 @@ router.get("/api/workouts/range", (req, res) => {
     })
     .catch(err => {
         res.json(err);
-    });
-});
-
-// post any new workouts by using post and create
-router.post("/api/workouts", ({ body }, res) => {
-    Workout.create(body)
-    .then(dbWorkout => {
-        res.json(dbWorkout)
-    })
-    .catch(err => {
-        res.json(err)
-    });
-});
-
-// update by ID, using MongoDB documentation
-router.put("/api/workouts/:id", (req, res) => {
-    // we only want to update ONE document, at this id, with these new updates
-    Workout.updateOne( {_id: req.params.id}, {$push: {
-        exercises: [
-            type = req.body.type,
-            name= req.body.name,
-            duration= req.body.duration,
-            distance= req.body.distance,
-            weight= req.body.weight,
-            sets= req.body.sets,
-            reps= req.body.reps
-        ]
-    }
-    })
-    .then(dbWorkout => {
-        res.json(dbWorkout)
-    })
-    .catch(err => {
-        res.json(err)
     });
 });
 
