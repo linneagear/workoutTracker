@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Workout = require("../models/workout.js");
+const db = require("../models")
 const path = require("path")
 
 // ***** HTML ROUTES*****//
@@ -17,11 +17,12 @@ router.get("/stats", (req, res) => {
     res.sendFile(path.join(__dirname, '../public', 'stats.html'));
 });
 
-// **** API ROUTES **** // 
 
-// get the workouts data
+//// **** API ROUTES **** ////
+
+// get all workout data
 router.get("/api/workouts", (req, res) => {
-    Workout.find({})
+    db.Workout.find({})
     // sort by last known date, and limit to one day
     // .sort({ date: -1})
     // .limit(1)
@@ -33,29 +34,31 @@ router.get("/api/workouts", (req, res) => {
     });
 });
 
-// post any new workouts by using post and create
-router.post("/api/workouts", (req, res) => {
-    Workout.create({})
+
+// update by ID, using MongoDB documentation
+router.put("/api/workouts/:id", ({ body, params }, res) => {
+    // updates one document, at this id, with these new updates
+    db.Workout.findOneAndUpdate( 
+        // id of item to find
+        {_id: params.id},
+        // changes to be made. Combine existing body with this change
+        {$push: { exercises: body }},
+        // return the updated version, instead of the pre-updated one
+        // "runValidators" ensures new exercies meet requirements
+        { new: true, runValidators: true}
+    )
     .then(dbWorkout => {
         res.json(dbWorkout)
+        console.log(exercises)
     })
     .catch(err => {
         res.json(err)
     });
 });
 
-// update by ID, using MongoDB documentation
-router.put("/api/workouts/:id", ({body, params}, res) => {
-    // updates one document, at this id, with these new updates
-    Workout.findByIdAndUpdate( 
-        // id of item to find
-        params.id,
-        // changes to be made. Combine existing body with this change
-        {$push: {exercies: body} },
-        // return the updated version, instead of the pre-updated one
-        // "runValidators" ensures new exercies meet requirements
-        { new: true, runValidators: true}
-    )
+// post any new workouts by using post and create
+router.post("/api/workouts", (req, res) => {
+    db.Workout.create({})
     .then(dbWorkout => {
         res.json(dbWorkout)
     })
@@ -66,7 +69,7 @@ router.put("/api/workouts/:id", ({body, params}, res) => {
 
 // get range of workouts
 router.get("/api/workouts/range", (req, res) => {
-    Workout.find({})
+    db.Workout.find({})
     .then(dbWorkout => {
         res.json(dbWorkout)
     })
