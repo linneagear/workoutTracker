@@ -29,9 +29,8 @@ The user should be able to:
 
 ![Charts](/public/images/graphs.JPG)
 
-## Installation 
 
-[Deployed Link]()
+[Deployed Link](https://thawing-woodland-90372.herokuapp.com/)
 
 ## Future Developments
 There was some confusion on my end for having two different buttons, one for "Complete" and "Add Exercise." I thought you had to press Add Exercise to add, and then hit Complete but in actuality you only had to press one or the other. I would change the Complete button to either Delete Exercise, or just have one button to add the exercise. 
