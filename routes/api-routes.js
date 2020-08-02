@@ -1,11 +1,21 @@
-// const router = require("express").Router();
-const Workout = require("../models/Workout")
+const express = require("express");
+// create the router
+const router = express.Router();
+// Import the model (Workout.js) to use its database functions.
+const Workout = require("../models/Workout.js");
 
 //// **** API ROUTES **** ////
 
-module.exports = function (app) {
 // get all workout data
-app.get("/api/workouts", (req, res) => {
+router.get("/", function (req, res) {
+    Workout.find({}).then(dbWorkout => {
+        res.json(dbWorkout);
+    }).catch(err => {
+        res.json(err);
+    });
+});
+
+router.get("/api/workouts", (req, res) => {
     Workout.find({}).then(dbWorkout => {
         res.json(dbWorkout);
     }).catch(err => {
@@ -14,7 +24,7 @@ app.get("/api/workouts", (req, res) => {
 });
 
 // update by ID, using MongoDB documentation
-app.put("/api/workouts/:id", ({ body, params }, res) => {
+router.put("/api/workouts/:id", ({ body, params }, res) => {
 
     // updates one document, at this id, with these new updates
     Workout.findByIdAndUpdate(params.id, 
@@ -33,7 +43,7 @@ app.put("/api/workouts/:id", ({ body, params }, res) => {
 });
 
 // post any new workouts by using post and create(body)
-app.post("/api/workouts", ({ body }, res) => {
+router.post("/api/workouts", ({ body }, res) => {
     Workout.create(body)
     .then(dbWorkout => {
         res.json(dbWorkout)
@@ -44,7 +54,7 @@ app.post("/api/workouts", ({ body }, res) => {
 });
 
 // get range of workouts for the stats page
-app.get("/api/workouts/range", (req, res) => {
+router.get("/api/workouts/range", (req, res) => {
     Workout.find({})
     .then(dbWorkout => {
         res.json(dbWorkout)
@@ -54,6 +64,5 @@ app.get("/api/workouts/range", (req, res) => {
     });
 });
 
-};
 // export the router so it can be used
-// module.exports = router;
+module.exports = router;
