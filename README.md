@@ -32,7 +32,17 @@ The user should be able to:
 
 [Deployed Link](https://thawing-woodland-90372.herokuapp.com/)
 
+## Dependencies
+
+- [MongoDB](https://www.mongodb.com/)
+- [Mongoose](https://mongoosejs.com/)
+- [Express](https://expressjs.com/)
+- [mLab](https://mlab.com/) - connects Mongo database
+- [Robo3T](https://robomongo.org/) - helped to connect to the Mongo database
+
 ## Future Developments
 There was some confusion on my end for having two different buttons, one for "Complete" and "Add Exercise." I thought you had to press Add Exercise to add, and then hit Complete but in actuality you only had to press one or the other. I would change the Complete button to either Delete Exercise, or just have one button to add the exercise. 
 
 The dates also don't line up on the graphs; it keeps going forward, instead of taking in the date the user enters.
+
+When trying to deploy to Heroku, the server was not able to navigate to the models folder, so I had to move Workout.js into the main file in order to be read.
