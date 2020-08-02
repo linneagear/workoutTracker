@@ -1,7 +1,7 @@
 
 # Workout Tracker
 
-For this assignment, you'll create a workout tracker. You have already been provided with the front end code in the `Develop` folder. This assignment will require you to create Mongo database with a Mongoose schema and handle routes with Express.
+I was provided with the front end code and was assigned to handle the server side. This Workout Tracker creates a Mongo database with a Mongoose schema and handles routes with Express.
 
 ## User Story
 
@@ -11,9 +11,11 @@ For this assignment, you'll create a workout tracker. You have already been prov
 
 A consumer will reach their fitness goals quicker when they track their workout progress.
 
-## Acceptance Criteria
+## Usage
 
 When the user loads the page, they should be given the option to create a new workout, or continue with their last workout.
+
+![New or Continue](/public/images/newWorkout.JPG)
 
 The user should be able to:
 
@@ -23,11 +25,15 @@ The user should be able to:
 
   * View multiple the combined weight of multiple exercises on the `stats` page.
 
+![Input](/public/images/input.JPG)
 
-## Submission on BCS
+![Charts](/public/images/graphs.JPG)
 
-You are required to submit the following:
+## Installation 
 
-* The URL to the deployed application
+[Deployed Link]()
 
-* The URL to the Github repository
+## Future Developments
+There was some confusion on my end for having two different buttons, one for "Complete" and "Add Exercise." I thought you had to press Add Exercise to add, and then hit Complete but in actuality you only had to press one or the other. I would change the Complete button to either Delete Exercise, or just have one button to add the exercise. 
+
+The dates also don't line up on the graphs; it keeps going forward, instead of taking in the date the user enters.
