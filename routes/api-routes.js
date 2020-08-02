@@ -2,18 +2,18 @@ const express = require("express");
 // create the router
 const router = express.Router();
 // Import the model (Workout.js) to use its database functions.
-const Workout = require("../models/Workout.js");
+const Workout = require("../Workout.js");
 
 //// **** API ROUTES **** ////
 
 // get all workout data
-router.get("/", function (req, res) {
-    Workout.find({}).then(dbWorkout => {
-        res.json(dbWorkout);
-    }).catch(err => {
-        res.json(err);
-    });
-});
+// router.get("/", function (req, res) {
+//     Workout.find({}).then(dbWorkout => {
+//         res.json(dbWorkout);
+//     }).catch(err => {
+//         res.json(err);
+//     });
+// });
 
 router.get("/api/workouts", (req, res) => {
     Workout.find({}).then(dbWorkout => {
